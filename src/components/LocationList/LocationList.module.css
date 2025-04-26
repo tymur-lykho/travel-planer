@@ -1,14 +1,3 @@
-.card {
-  border: 1px solid #ff9900;
-  border-radius: 8px;
-  background-color: #3b3b3b27;
-  padding: 5px 15px;
-}
-
-.title {
-  font-weight: 400;
-}
-
 .coordinates {
   font-size: 12px;
   opacity: 0.5;

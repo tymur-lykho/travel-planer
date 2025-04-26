@@ -3,23 +3,26 @@ import Box from "@mui/material/Box";
 import css from "./SideBar.module.css";
 import LocationList from "../LocationList/LocationList";
 import { useState, useCallback } from "react";
+import CustomAccordion from "../CustomAccordion/CustomAccordion";
+import Routes from "../Routes/Routes";
 
 export default function SideBar({
   formData,
   onUpdate,
   onLocationFormSubmit,
   savedLocations,
+  savedRoutes,
+  addRoute,
+  deleteRoute,
   markers,
+  onRename,
+  itemName,
 }) {
-  const [itemDataShown, setItemDataShown] = useState(false);
+  const [expandedAccordion, setExpandedAccordion] = useState(false);
 
-  const handleTitleClick = useCallback(
-    () =>
-      setItemDataShown((isShown) => {
-        return !isShown;
-      }),
-    []
-  );
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpandedAccordion(isExpanded ? panel : false);
+  };
 
   return (
     <div className={css.sidebar}>
@@ -33,18 +36,37 @@ export default function SideBar({
         </Box>
       )}
 
-      <Box sx={{ border: "1px dashed grey" }}>
-        <h3 onClick={handleTitleClick}>Saved locations</h3>
-        {itemDataShown && (
+      <CustomAccordion
+        expanded={expandedAccordion === "accordion1"}
+        onChange={handleChange("accordion1")}
+        title="Favorite locations"
+        content={
           <>
-            {savedLocations ? (
-              <LocationList items={savedLocations} />
+            {savedLocations.length > 0 ? (
+              <LocationList
+                items={savedLocations}
+                onRename={onRename}
+                itemName={itemName}
+              />
             ) : (
-              <p>Saved point not found!</p>
+              <p>Saved locations not found</p>
             )}
           </>
-        )}
-      </Box>
+        }
+      />
+
+      <CustomAccordion
+        expanded={expandedAccordion === "accordion2"}
+        onChange={handleChange("accordion2")}
+        title="Routes"
+        content={
+          <Routes
+            savedRoutes={savedRoutes}
+            addRoute={addRoute}
+            deleteRoute={deleteRoute}
+          />
+        }
+      />
 
       {/* 
       <form method="get" id="create-route-form">

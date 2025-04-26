@@ -25,6 +25,16 @@ function App() {
       return [];
     }
   });
+  const [routeList, setRouteList] = React.useState(() => {
+    try {
+      const data = JSON.parse(localStorage.getItem("savedRoutes"));
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      console.warn("localStorage contains invalid JSON", err);
+      return [];
+    }
+  });
+  const [itemName, setItemName] = React.useState("");
 
   const handleClickOnMap = (e) => {
     const { latLng } = e.detail;
@@ -52,6 +62,37 @@ function App() {
     });
   };
 
+  const addRoute = () => {
+    setRouteList((routeList) => [
+      ...routeList,
+      {
+        id: uuidv4(),
+        name: `New Route ${Date.now()}`,
+        points: [],
+        createdAt: Date.now(),
+      },
+    ]);
+  };
+  const deleteRoute = (id) => {
+    setRouteList((routeList) => {
+      return routeList.filter((route) => route.id !== id);
+    });
+  };
+
+  const handleRename = (e, type, oldName) => {
+    setItemName(e.target.value);
+    switch (type) {
+      case "location":
+        // const updatingMarker = savedMarkers.find((marker) => marker.name === oldName);
+
+        setSavedMarkers((itemName) => {});
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const handleClickOnMarker = (e) => {
     if (!e.latLng) return;
     console.log("marker clicked:", e.latLng.toString());
@@ -69,6 +110,10 @@ function App() {
   React.useEffect(() => {
     localStorage.setItem("savedLocations", JSON.stringify(savedMarkers));
   }, [savedMarkers]);
+
+  React.useEffect(() => {
+    localStorage.setItem("savedRoutes", JSON.stringify(routeList));
+  }, [routeList]);
 
   return (
     <>
@@ -95,6 +140,11 @@ function App() {
             onUpdate={handleChangeInForm}
             onLocationFormSubmit={addPlace}
             savedLocations={savedMarkers}
+            savedRoutes={routeList}
+            addRoute={addRoute}
+            deleteRoute={deleteRoute}
+            onRename={handleRename}
+            itemName={itemName}
           />
         </APIProvider>
       </Box>
