@@ -21,12 +21,7 @@ export default function LocationList({ onRename, itemName }) {
           key={location.id}
           onClick={() => handleFocusOnPoint(location.lat, location.lng)}
         >
-          <MenuCard
-            type="location"
-            title={location.name}
-            onRename={onRename}
-            itemName={itemName}
-          >
+          <MenuCard type="location" title={location.name} id={location.id}>
             <p className={css.coordinates}>
               Coordinates: {location.lat} / {location.lng}
             </p>
