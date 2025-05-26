@@ -1,20 +1,23 @@
 import MenuCard from "../MenuCard/MenuCard";
 import css from "./LocationList.module.css";
 import { useMap } from "@vis.gl/react-google-maps";
+import { useSelector } from "react-redux";
 
-export default function LocationList({ items, onRename, itemName }) {
+export default function LocationList({ onRename, itemName }) {
+  const savedMarkers = useSelector((state) => state.markers.items);
   const map = useMap();
 
   const handleFocusOnPoint = (lat, lng) => {
     if (map) {
       map.setCenter({ lat, lng });
-      map.setZoom(15);
+      map.setZoom(13);
     }
   };
   return (
-    <ul>
-      {items.map((location) => (
+    <ul className={css.list}>
+      {savedMarkers.map((location) => (
         <li
+          className={css.item}
           key={location.id}
           onClick={() => handleFocusOnPoint(location.lat, location.lng)}
         >

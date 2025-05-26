@@ -3,12 +3,12 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 
 import { useState } from "react";
 
-import Box from "@mui/material/Box";
 import MapSection from "../components/MapSection/MapSection";
 import SideBar from "../components/SideBar/SideBar";
 import Markers from "../components/Markers/Markers";
 import AddLocationForm from "../components/AddLocationForm/AddLocationForm";
 import Section from "../components/Section/Section";
+import LocationList from "../components/LocationList/LocationList";
 
 export default function MapViewPage() {
   const [marker, setMarker] = useState({});
@@ -28,6 +28,7 @@ export default function MapViewPage() {
 
     setMarker({ lat, lng });
   };
+
   return (
     <APIProvider
       apiKey={config.GM_API_KEY}
@@ -40,12 +41,12 @@ export default function MapViewPage() {
 
         <SideBar>
           {marker?.lat ? (
-            <Box>
-              <AddLocationForm formData={formData} />
-            </Box>
+            <AddLocationForm formData={formData} />
           ) : (
             <p style={{ textAlign: "center" }}>Find a place on the map</p>
           )}
+
+          <LocationList />
         </SideBar>
       </Section>
     </APIProvider>

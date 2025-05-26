@@ -1,5 +1,6 @@
 import { useState } from "react";
 import css from "./MenuCard.module.css";
+import { MdOutlineEdit } from "react-icons/md";
 
 export default function MenuCard({
   title,
@@ -16,7 +17,7 @@ export default function MenuCard({
   return (
     <div className={css.card}>
       {!isRename ? (
-        <h5>{title}</h5>
+        <h5 className={css.title}>{title}</h5>
       ) : (
         <input
           type="text"
@@ -27,8 +28,8 @@ export default function MenuCard({
         />
       )}
 
-      <button type="button" onClick={handleRename}>
-        Rename
+      <button type="button" className={css.editBtn} onClick={handleRename}>
+        <MdOutlineEdit />
       </button>
       {children}
     </div>
