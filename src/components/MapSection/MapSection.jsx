@@ -1,6 +1,7 @@
 import { Map } from "@vis.gl/react-google-maps";
 import css from "./MapSection.module.css";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function MapSection({ onClickOnMap, children }) {
   const [currentLocation, setCurrentLocation] = useState({

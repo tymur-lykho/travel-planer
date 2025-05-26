@@ -3,12 +3,19 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { Formik, Form, Field } from "formik";
 import css from "./AddLocationForm.module.css";
+import { v4 as uuidv4 } from "uuid";
 
-export default function AddLocationForm({
-  formData,
-  onUpdate,
-  onLocationFormSubmit,
-}) {
+import { useDispatch } from "react-redux";
+import { addMarker } from "../../redux/markersSlice";
+
+export default function AddLocationForm({ formData }) {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values, { resetForm }) => {
+    const newPlaceData = { ...values, id: uuidv4() };
+    dispatch(addMarker(newPlaceData));
+    resetForm();
+  };
   return (
     <>
       <Formik
@@ -18,10 +25,7 @@ export default function AddLocationForm({
           lng: formData.lng || 0,
         }}
         enableReinitialize
-        onSubmit={(values, { resetForm }) => {
-          onLocationFormSubmit({ values });
-          resetForm();
-        }}
+        onSubmit={handleSubmit}
       >
         {() => (
           <Form className={css.form}>
