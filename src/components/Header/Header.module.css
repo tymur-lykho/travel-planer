@@ -1,4 +1,23 @@
+.header {
+  padding: 10px 0;
+  background-color: #f1f1f1;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
+}
+
+.list {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

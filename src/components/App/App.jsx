@@ -1,16 +1,23 @@
 import "modern-normalize";
-import { v4 as uuidv4 } from "uuid";
 import css from "./App.module.css";
-import Header from "../Header/Header";
+
 import { config } from "../../js/config";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import { v4 as uuidv4 } from "uuid";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
+import Header from "../Header/Header";
 import MapSection from "../MapSection/MapSection";
 import SideBar from "../SideBar/SideBar";
-import { APIProvider } from "@vis.gl/react-google-maps";
+import Markers from "../Markers/Markers";
+import CustomAccordion from "../CustomAccordion/CustomAccordion";
+import LocationList from "../LocationList/LocationList";
+import Routes from "../Routes/Routes";
+import AddLocationForm from "../AddLocationForm/AddLocationForm";
 
 function App() {
-  const [markers, setMarkers] = React.useState([]);
+  const [marker, setMarker] = React.useState({});
   const [formData, setFormData] = React.useState({
     name: "",
     lat: "",
@@ -37,16 +44,14 @@ function App() {
   const [itemName, setItemName] = React.useState("");
 
   const handleClickOnMap = (e) => {
-    const { latLng } = e.detail;
-    const lat = latLng.lat;
-    const lng = latLng.lng;
+    const { lat, lng } = e.detail.latLng;
     setFormData({
       ...formData,
       lat,
       lng,
     });
 
-    setMarkers((prev) => [...prev, { lat, lng }]);
+    setMarker({ lat, lng });
   };
 
   const handleChangeInForm = (e) => {
@@ -115,37 +120,75 @@ function App() {
     localStorage.setItem("savedRoutes", JSON.stringify(routeList));
   }, [routeList]);
 
+  const [expandedAccordion, setExpandedAccordion] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpandedAccordion(isExpanded ? panel : false);
+  };
+
   return (
     <>
       <Header />
 
-      <Box
-        component="section"
-        className={css.section}
-        sx={{ border: "1px dashed grey" }}
-      >
+      <Box component="section" className={css.section}>
         <APIProvider
           apiKey={config.GM_API_KEY}
           onLoad={() => console.log("Maps API has loaded.")}
         >
-          <MapSection
-            markers={markers}
-            savedMarkers={savedMarkers}
-            onClickOnMap={handleClickOnMap}
-            onClickOnMarker={handleClickOnMarker}
-          />
-          <SideBar
-            markers={markers}
-            formData={formData}
-            onUpdate={handleChangeInForm}
-            onLocationFormSubmit={addPlace}
-            savedLocations={savedMarkers}
-            savedRoutes={routeList}
-            addRoute={addRoute}
-            deleteRoute={deleteRoute}
-            onRename={handleRename}
-            itemName={itemName}
-          />
+          <MapSection onClickOnMap={handleClickOnMap}>
+            <Markers
+              marker={marker}
+              onMarkerClick={handleClickOnMarker}
+              savedMarkers={savedMarkers}
+            />
+          </MapSection>
+
+          <SideBar>
+            {marker?.lat ? (
+              <Box>
+                <AddLocationForm
+                  formData={formData}
+                  onUpdate={handleChangeInForm}
+                  onLocationFormSubmit={addPlace}
+                />
+              </Box>
+            ) : (
+              <p style={{ textAlign: "center" }}>Find a place on the map</p>
+            )}
+
+            {/* <CustomAccordion
+              expanded={expandedAccordion === "accordion1"}
+              onChange={handleChange("accordion1")}
+              title="Favorite locations"
+              content={
+                <>
+                  {savedMarkers.length > 0 ? (
+                    <LocationList
+                      items={savedMarkers}
+                      onRename={handleRename}
+                      itemName={itemName}
+                    />
+                  ) : (
+                    <p>Saved locations not found</p>
+                  )}
+                </>
+              }
+            />
+
+            <CustomAccordion
+              expanded={expandedAccordion === "accordion2"}
+              onChange={handleChange("accordion2")}
+              title="Routes"
+              content={
+                <Routes
+                  savedRoutes={routeList}
+                  onRename={handleRename}
+                  addRoute={addRoute}
+                  deleteRoute={deleteRoute}
+                />
+              }
+            /> */}
+          </SideBar>
         </APIProvider>
       </Box>
     </>

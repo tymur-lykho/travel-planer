@@ -1,14 +1,8 @@
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { Map } from "@vis.gl/react-google-maps";
 import css from "./MapSection.module.css";
 import { useEffect, useState } from "react";
-import Markers from "../Markers/Markers";
 
-export default function MapSection({
-  markers,
-  savedMarkers,
-  onClickOnMap,
-  onClickOnMarker,
-}) {
+export default function MapSection({ onClickOnMap, children }) {
   const [currentLocation, setCurrentLocation] = useState({
     lat: -33.860664,
     lng: 151.208138,
@@ -53,11 +47,7 @@ export default function MapSection({
       defaultCenter={currentLocation}
       onClick={onClickOnMap}
     >
-      <Markers
-        markers={markers}
-        onMarkerClick={onClickOnMarker}
-        savedMarkers={savedMarkers}
-      />
+      {children}
     </Map>
   );
 }
