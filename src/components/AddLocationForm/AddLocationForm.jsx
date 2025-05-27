@@ -1,6 +1,3 @@
-import { IoMdClose } from "react-icons/io";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import { Formik, Form, Field } from "formik";
 import css from "./AddLocationForm.module.css";
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +20,7 @@ export default function AddLocationForm({ formData }) {
           name: formData.name || "",
           lat: formData.lat || 0,
           lng: formData.lng || 0,
+          category: "",
         }}
         enableReinitialize
         onSubmit={handleSubmit}
@@ -38,6 +36,14 @@ export default function AddLocationForm({ formData }) {
               placeholder="Location name"
               required
             />
+            <Field as="select" name="category" className={css.field}>
+              <option value="" disabled>
+                ---Select category---
+              </option>
+              <option value="sight">Sights</option>
+              <option value="hotel">Hotel</option>
+              <option value="cafe">Cafe & Restourant</option>
+            </Field>
             <p className={css.latLng}>
               Latitude: <span>{formData.lat}</span>
             </p>

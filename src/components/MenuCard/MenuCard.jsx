@@ -4,7 +4,7 @@ import { MdOutlineEdit, MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { deleteMarker, renameMarker } from "../../redux/markersSlice";
 
-export default function MenuCard({ title, children, type, id }) {
+export default function MenuCard({ title, children, type, id, icon }) {
   const [itemName, setItemName] = useState(title);
   const [isRename, setIsRename] = useState(false);
 
@@ -29,23 +29,30 @@ export default function MenuCard({ title, children, type, id }) {
   };
   return (
     <div className={css.card}>
-      {!isRename ? (
-        <h5 className={css.title}>{title}</h5>
-      ) : (
-        <input
-          type="text"
-          value={itemName === "" ? title : itemName}
-          onChange={handleNameChenged}
-        />
-      )}
+      {icon}
+      <div>
+        {!isRename ? (
+          <h5 className={css.title}>{title}</h5>
+        ) : (
+          <input
+            type="text"
+            value={itemName === "" ? title : itemName}
+            onChange={handleNameChenged}
+          />
+        )}
+        <button type="button" className={css.btn} onClick={handleRename}>
+          <MdOutlineEdit size={20} />
+        </button>
+        {children}
+      </div>
 
-      <button type="button" className={css.btn} onClick={handleRename}>
-        <MdOutlineEdit size={20} />
+      <button
+        type="button"
+        className={`${css.btn} ${css.delete}`}
+        onClick={handleDelete}
+      >
+        <MdDelete size={25} />
       </button>
-      <button type="button" className={css.btn} onClick={handleDelete}>
-        <MdDelete size={20} />
-      </button>
-      {children}
     </div>
   );
 }

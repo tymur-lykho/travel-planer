@@ -2,10 +2,14 @@
   border-radius: 8px;
   background-color: #3b3b3b1a;
   padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .title {
   display: inline-block;
+  margin-right: 5px;
 }
 
 .btn {
@@ -16,5 +20,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 5px;
+
+  &.delete {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
 }

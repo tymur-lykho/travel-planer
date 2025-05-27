@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import markersReducer from "./markersSlice";
 import routesReducer from "./routesSlice";
+import filtersReducer from "./filtersSlice";
 
 const persistMarkersConfig = {
   key: "markers",
@@ -38,6 +39,7 @@ export const store = configureStore({
   reducer: {
     markers: persistedMarkersReducer,
     routes: persistedRoutesReducer,
+    filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

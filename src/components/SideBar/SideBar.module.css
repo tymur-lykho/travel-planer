@@ -1,4 +1,6 @@
 .sidebar {
-  min-width: 20%;
+  min-width: 25%;
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
   padding: 12px;
 }

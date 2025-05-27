@@ -9,6 +9,8 @@ import Markers from "../components/Markers/Markers";
 import AddLocationForm from "../components/AddLocationForm/AddLocationForm";
 import Section from "../components/Section/Section";
 import LocationList from "../components/LocationList/LocationList";
+import SearchBox from "../components/SearchBox/SearchBox";
+import CategoryList from "../components/CategoryList/CategoryList";
 
 export default function MapViewPage() {
   const [marker, setMarker] = useState({});
@@ -36,16 +38,17 @@ export default function MapViewPage() {
     >
       <Section>
         <MapSection onClickOnMap={handleClickOnMap}>
-          <Markers marker={marker} />
-        </MapSection>
-
-        <SideBar>
           {marker?.lat ? (
             <AddLocationForm formData={formData} />
           ) : (
             <p style={{ textAlign: "center" }}>Find a place on the map</p>
           )}
+          <Markers marker={marker} />
+        </MapSection>
 
+        <SideBar>
+          <SearchBox type="location" />
+          <CategoryList categories={["All", "Hotel", "Cafe", "Sight"]} />
           <LocationList />
         </SideBar>
       </Section>
