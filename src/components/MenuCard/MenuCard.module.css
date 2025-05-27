@@ -1,6 +1,37 @@
 .card {
-  border: 1px solid #ff9900;
   border-radius: 8px;
-  background-color: #3b3b3b27;
+  background-color: #3b3b3b1a;
   padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.cardIcon {
+  flex-shrink: 0;
+}
+
+.titleInput {
+  width: 100%;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.delete {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+}
+
+.renameArea {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

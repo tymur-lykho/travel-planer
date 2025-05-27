@@ -1,3 +1,21 @@
 .sidebar {
-  min-width: 20%;
+  position: relative;
+  min-width: 25%;
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
+  padding: 12px;
+}
+
+.sidebarHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  padding: 12px;
+  background-color: #f1f1f1;
+}
+
+.sidebarContent {
+  margin-top: 118px;
 }

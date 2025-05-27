@@ -1,0 +1,65 @@
+.form {
+  position: relative;
+  background-color: #f0f0f0;
+  z-index: 2;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 33px -5px rgba(0, 0, 0, 0.74);
+  -webkit-box-shadow: 1px 1px 33px -5px rgba(0, 0, 0, 0.74);
+  -moz-box-shadow: 1px 1px 33px -5px rgba(0, 0, 0, 0.74);
+  display: "flex";
+  flex-direction: "column";
+  gap: "10px";
+}
+
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+}
+
+.field {
+  width: 100%;
+  font-size: 20px;
+  border: 1px solid #707070;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  background-color: transparent;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.latLng {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #707070;
+}
+
+.latLng:last-of-type {
+  margin-bottom: 30px;
+}
+
+.saveBtn {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  text-align: center;
+  background-color: rgb(48, 113, 211);
+  border: none;
+  border-radius: 5px;
+  color: #f0f0f0;
+}
+
+.select {
+}

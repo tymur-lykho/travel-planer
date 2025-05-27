@@ -1,4 +1,11 @@
 .map {
+  position: relative;
   width: 100%;
-  height: 80vh;
+  height: calc(100vh - 70px);
+}
+
+.contentOnMap {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
 }

@@ -2,8 +2,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 20px;
 
-  background-color: antiquewhite;
+  background-color: rgb(223, 223, 223);
 }
 
 body {
@@ -35,4 +36,6 @@ p {
 button {
   color: inherit;
   font-family: inherit;
+  background-color: transparent;
+  border: none;
 }

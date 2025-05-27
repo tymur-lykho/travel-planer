@@ -1,13 +1,8 @@
 import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 
-export default function NewMarker({ index, marker, onMarkerClick }) {
+export default function NewMarker({ marker }) {
   return (
-    <AdvancedMarker
-      key={index}
-      position={marker}
-      clickable={true}
-      onClick={onMarkerClick}
-    >
+    <AdvancedMarker position={marker}>
       <Pin background={"#FBBC04"} glyphColor={"#000"} borderColor={"#000"} />
     </AdvancedMarker>
   );

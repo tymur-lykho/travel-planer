@@ -1,0 +1,17 @@
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itemBtn {
+  background-color: #3b3b3b1a;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.active {
+  background-color: #097bc7;
+  color: #fcfcfc;
+}

@@ -1,13 +1,19 @@
-import { IoMdClose } from "react-icons/io";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import { Formik, Form, Field } from "formik";
+import css from "./AddLocationForm.module.css";
+import { v4 as uuidv4 } from "uuid";
 
-export default function AddLocationForm({
-  formData,
-  onUpdate,
-  onLocationFormSubmit,
-}) {
+import { useDispatch } from "react-redux";
+import { addMarker } from "../../redux/markersSlice";
+import { MdClose } from "react-icons/md";
+
+export default function AddLocationForm({ formData, onClose }) {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values, { resetForm }) => {
+    const newPlaceData = { ...values, id: uuidv4() };
+    dispatch(addMarker(newPlaceData));
+    resetForm();
+  };
   return (
     <>
       <Formik
@@ -15,31 +21,43 @@ export default function AddLocationForm({
           name: formData.name || "",
           lat: formData.lat || 0,
           lng: formData.lng || 0,
+          category: "",
         }}
-        enableReinitialize // важливо, щоб оновлювались значення при зміні formData
-        onSubmit={(values, { resetForm }) => {
-          onLocationFormSubmit({ values }); // можна передавати також lat/lng окремо
-          resetForm();
-        }}
+        enableReinitialize
+        onSubmit={handleSubmit}
       >
         {() => (
-          <Form
-            style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
-          >
-            <h3>Save location</h3>
+          <Form className={css.form}>
+            <button className={css.closeBtn} onClick={onClose}>
+              <MdClose />
+            </button>
+            <h3 className={css.title}>About this place</h3>
 
             <Field
+              className={css.field}
               type="text"
               name="name"
               placeholder="Location name"
               required
             />
+            <Field as="select" name="category" className={css.field}>
+              <option value="" disabled>
+                ---Select category---
+              </option>
+              <option value="sight">Sights</option>
+              <option value="hotel">Hotel</option>
+              <option value="cafe">Cafe & Restourant</option>
+            </Field>
+            <p className={css.latLng}>
+              Latitude: <span>{formData.lat}</span>
+            </p>
+            <p className={css.latLng}>
+              Longitude: <span>{formData.lng}</span>
+            </p>
 
-            <h4>Coordinates to this point:</h4>
-            <p>Latitude: {formData.lat}</p>
-            <p>Longitude: {formData.lng}</p>
-
-            <button type="submit">Save</button>
+            <button className={css.saveBtn} type="submit">
+              Save
+            </button>
           </Form>
         )}
       </Formik>
