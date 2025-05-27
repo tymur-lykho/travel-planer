@@ -24,20 +24,20 @@ export default function LocationList() {
   const handleFocusOnPoint = (lat, lng) => {
     if (map) {
       map.setCenter({ lat, lng });
-      map.setZoom(13);
+      map.setZoom(20);
     }
   };
 
-  const getIconByCategory = (category) => {
+  const getIconByCategory = (category, size = 30, color = "#097bc7") => {
     switch (category) {
       case "cafe":
-        return <GrCafeteria />;
+        return <GrCafeteria size={size} color={color} />;
       case "sight":
-        return <MdAttractions />;
+        return <MdAttractions size={size} color={color} />;
       case "hotel":
-        return <MdHotel />;
+        return <MdHotel size={size} color={color} />;
       default:
-        return <MdPlace />;
+        return <MdPlace size={size} color={color} />;
     }
   };
   return (

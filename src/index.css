@@ -36,4 +36,6 @@ p {
 button {
   color: inherit;
   font-family: inherit;
+  background-color: transparent;
+  border: none;
 }

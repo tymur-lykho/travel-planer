@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useDispatch } from "react-redux";
 import { addMarker } from "../../redux/markersSlice";
+import { MdClose } from "react-icons/md";
 
-export default function AddLocationForm({ formData }) {
+export default function AddLocationForm({ formData, onClose }) {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
@@ -27,6 +28,9 @@ export default function AddLocationForm({ formData }) {
       >
         {() => (
           <Form className={css.form}>
+            <button className={css.closeBtn} onClick={onClose}>
+              <MdClose />
+            </button>
             <h3 className={css.title}>About this place</h3>
 
             <Field

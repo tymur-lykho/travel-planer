@@ -11,7 +11,7 @@ export default function Header() {
       <Container>
         <nav className={css.nav}>
           <Logo />
-          <ul className={css.list}>
+          {/* <ul className={css.list}>
             <li className={css.item}>
               <FaMap />
               Map View
@@ -24,7 +24,7 @@ export default function Header() {
               <FaHeart />
               Favorites
             </li>
-          </ul>
+          </ul> */}
         </nav>
       </Container>
     </header>

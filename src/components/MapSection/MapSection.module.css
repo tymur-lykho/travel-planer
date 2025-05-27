@@ -3,3 +3,9 @@
   width: 100%;
   height: calc(100vh - 70px);
 }
+
+.contentOnMap {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}

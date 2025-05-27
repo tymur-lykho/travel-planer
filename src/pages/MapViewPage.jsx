@@ -12,6 +12,8 @@ import LocationList from "../components/LocationList/LocationList";
 import SearchBox from "../components/SearchBox/SearchBox";
 import CategoryList from "../components/CategoryList/CategoryList";
 
+import { MdFavorite } from "react-icons/md";
+
 export default function MapViewPage() {
   const [marker, setMarker] = useState({});
   const [formData, setFormData] = useState({
@@ -19,6 +21,7 @@ export default function MapViewPage() {
     lat: "",
     lng: "",
   });
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleClickOnMap = (e) => {
     const { lat, lng } = e.detail.latLng;
@@ -31,6 +34,14 @@ export default function MapViewPage() {
     setMarker({ lat, lng });
   };
 
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <APIProvider
       apiKey={config.GM_API_KEY}
@@ -38,17 +49,25 @@ export default function MapViewPage() {
     >
       <Section>
         <MapSection onClickOnMap={handleClickOnMap}>
-          {marker?.lat ? (
-            <AddLocationForm formData={formData} />
-          ) : (
-            <p style={{ textAlign: "center" }}>Find a place on the map</p>
+          {marker?.lat && !isOpenModal && (
+            <button onClick={openModal} aria-label="Add location to favorites">
+              <MdFavorite size={40} color="rgb(237 77 77)" />
+            </button>
+          )}
+          {isOpenModal && (
+            <AddLocationForm formData={formData} onClose={closeModal} />
           )}
           <Markers marker={marker} />
         </MapSection>
 
-        <SideBar>
-          <SearchBox type="location" />
-          <CategoryList categories={["All", "Hotel", "Cafe", "Sight"]} />
+        <SideBar
+          header={
+            <>
+              <SearchBox type="location" />
+              <CategoryList categories={["All", "Hotel", "Cafe", "Sight"]} />
+            </>
+          }
+        >
           <LocationList />
         </SideBar>
       </Section>

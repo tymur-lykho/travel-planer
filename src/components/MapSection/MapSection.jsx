@@ -48,7 +48,7 @@ export default function MapSection({ onClickOnMap, children }) {
       defaultCenter={currentLocation}
       onClick={onClickOnMap}
     >
-      {children}
+      <div className={css.contentOnMap}>{children}</div>
     </Map>
   );
 }
