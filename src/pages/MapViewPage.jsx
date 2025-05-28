@@ -24,7 +24,7 @@ export default function MapViewPage() {
   });
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const savedMarkers = useSelector((state) => state.markers);
+  const savedMarkers = useSelector((state) => state.markers.items);
 
   const handleClickOnMap = (e) => {
     const { lat, lng } = e.detail.latLng;
