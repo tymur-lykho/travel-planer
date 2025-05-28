@@ -13,6 +13,7 @@ import SearchBox from "../components/SearchBox/SearchBox";
 import CategoryList from "../components/CategoryList/CategoryList";
 
 import { MdFavorite } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function MapViewPage() {
   const [marker, setMarker] = useState({});
@@ -22,6 +23,8 @@ export default function MapViewPage() {
     lng: "",
   });
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const savedMarkers = useSelector((state) => state.markers);
 
   const handleClickOnMap = (e) => {
     const { lat, lng } = e.detail.latLng;
@@ -68,7 +71,13 @@ export default function MapViewPage() {
             </>
           }
         >
-          <LocationList />
+          {savedMarkers.length !== 0 ? (
+            <LocationList />
+          ) : (
+            <p style={{ textAlign: "center" }}>
+              No saved locations. Click on the map to save the location.
+            </p>
+          )}
         </SideBar>
       </Section>
     </APIProvider>
